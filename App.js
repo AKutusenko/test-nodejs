@@ -36,8 +36,8 @@ function getFiles(dirPath, callback) {
                   if (err) eachCallback(err);
                   else {
                     const isChanged =
-                      JSON.stringify(data) === JSON.stringify(newData);
-                    !isChanged &&
+                      JSON.stringify(data) !== JSON.stringify(newData);
+                    isChanged &&
                       console.log(
                         `The file ${filePath} has been changed successfully.`
                       );
