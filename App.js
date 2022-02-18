@@ -25,17 +25,22 @@ function getFiles(dirPath, callback) {
             });
           } else {
             if (stat.isFile() && /\.json$/.test(filePath)) {
-              fs.rename(
-                filePath,
-                filePath.replace(/\.json$/, "_developer’s-name.json"),
-                (err) => {
-                  if (err) throw err;
-                }
-              );
+              fs.readFile(filePath, "utf8", (err, data) => {
+                if (err) eachCallback(err);
+                let newData = data.replace(
+                  /"name"\:\s".{0,300}"/,
+                  '"name": "Arthur"'
+                );
 
-              filePaths.push(
-                filePath.replace(/\.json$/, "_developer’s-name.json")
-              );
+                fs.writeFile(filePath, newData, (err) => {
+                  if (err) eachCallback(err);
+                  else {
+                    console.log(
+                      `The file ${filePath} has been changed successfully.`
+                    );
+                  }
+                });
+              });
             }
 
             eachCallback(null);
@@ -50,5 +55,5 @@ function getFiles(dirPath, callback) {
 }
 
 getFiles("./", function (err, files) {
-  console.table(err || files);
+  // console.table(err || files);
 });
