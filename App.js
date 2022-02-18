@@ -28,16 +28,19 @@ function getFiles(dirPath, callback) {
               fs.readFile(filePath, "utf8", (err, data) => {
                 if (err) eachCallback(err);
                 let newData = data.replace(
-                  /"name"\:\s".{0,300}"/,
+                  /"name"\:\s".{0,300}"/g,
                   '"name": "Arthur"'
                 );
 
                 fs.writeFile(filePath, newData, (err) => {
                   if (err) eachCallback(err);
                   else {
-                    console.log(
-                      `The file ${filePath} has been changed successfully.`
-                    );
+                    const isChanged =
+                      JSON.stringify(data) === JSON.stringify(newData);
+                    !isChanged &&
+                      console.log(
+                        `The file ${filePath} has been changed successfully.`
+                      );
                   }
                 });
               });
@@ -54,6 +57,4 @@ function getFiles(dirPath, callback) {
   });
 }
 
-getFiles("./", function (err, files) {
-  // console.table(err || files);
-});
+getFiles("./", function () {});
