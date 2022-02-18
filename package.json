@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/AKutusenko/test-nodejs#readme",
   "dependencies": {
     "async": "^3.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
